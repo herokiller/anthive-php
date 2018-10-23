@@ -64,25 +64,51 @@ class Game {
             }
 
             //
-            if (($x - $x0 > 0) && ($this->isEmpty($y0, $x0 + 1))) {
-                $this->assign($antId, 'move', 'right');
-                return 1;
+            if ($y0 < $y) {
+                if (($x0 - $x > 0) && ($this->isEmpty($y0, $x0 - 1))) {
+                    $this->assign($antId, 'move', 'left');
+                    return 1;
+                }
+                if (($x - $x0 > 0) && ($this->isEmpty($y0, $x0 + 1))) {
+                    $this->assign($antId, 'move', 'right');
+                    return 1;
+                }
             }
 
-            if (($y0 - $y > 0) && ($this->isEmpty($y0 - 1, $x0))) {
-                $this->assign($antId, 'move', 'up');
-                return 1;
+            if ($y0 > $y) {
+                if (($x - $x0 > 0) && ($this->isEmpty($y0, $x0 + 1))) {
+                    $this->assign($antId, 'move', 'right');
+                    return 1;
+                }
+                if (($x0 - $x > 0) && ($this->isEmpty($y0, $x0 - 1))) {
+                    $this->assign($antId, 'move', 'left');
+                    return 1;
+                }
             }
 
-            if (($x0 - $x > 0) && ($this->isEmpty($y0, $x0 - 1))) {
-                $this->assign($antId, 'move', 'left');
-                return 1;
+            if ($x0 < $x) {
+                if (($y - $y0 > 0) && ($this->isEmpty($y0 + 1, $x0))) {
+                    $this->assign($antId, 'move', 'down');
+                    return 1;
+                }
+                if (($y0 - $y > 0) && ($this->isEmpty($y0 - 1, $x0))) {
+                    $this->assign($antId, 'move', 'up');
+                    return 1;
+                }
             }
 
-            if (($y - $y0 > 0) && ($this->isEmpty($y0 + 1, $x0))) {
-                $this->assign($antId, 'move', 'down');
-                return 1;
+            if ($x0 > $x) {
+                if (($y0 - $y > 0) && ($this->isEmpty($y0 - 1, $x0))) {
+                    $this->assign($antId, 'move', 'up');
+                    return 1;
+                }
+                if (($y - $y0 > 0) && ($this->isEmpty($y0 + 1, $x0))) {
+                    $this->assign($antId, 'move', 'down');
+                    return 1;
+                }
             }
+
+
 
 
 
@@ -171,26 +197,52 @@ class Game {
             }
 
             //
-            if (($x - $x0 > 0) && ($this->isEmpty($y0, $x0 + 1))) {
-                $this->assign($antId, 'move', 'right');
-                return 1;
+            if ($y0 > $y) {
+                if (($x - $x0 > 0) && ($this->isEmpty($y0, $x0 + 1))) {
+                    $this->assign($antId, 'move', 'right');
+                    return 1;
+                }
+                if (($x0 - $x > 0) && ($this->isEmpty($y0, $x0 - 1))) {
+                    $this->assign($antId, 'move', 'left');
+                    return 1;
+                }
             }
 
-            if (($y0 - $y > 0) && ($this->isEmpty($y - 1, $x0))) {
-                $this->assign($antId, 'move', 'up');
-                return 1;
+            if ($y0 < $y) {
+                if (($x0 - $x > 0) && ($this->isEmpty($y0, $x0 - 1))) {
+                    $this->assign($antId, 'move', 'left');
+                    return 1;
+                }
+                if (($x - $x0 > 0) && ($this->isEmpty($y0, $x0 + 1))) {
+                    $this->assign($antId, 'move', 'right');
+                    return 1;
+                }
             }
 
-            if (($x0 - $x > 0) && ($this->isEmpty($y0, $x0 - 1))) {
-                $this->assign($antId, 'move', 'left');
-                return 1;
+
+            if ($x0 < $x) {
+                if (($y - $y0 > 0) && ($this->isEmpty($y + 1, $x0))) {
+                    $this->assign($antId, 'move', 'down');
+                    return 1;
+                }
+
+                if (($y0 - $y > 0) && ($this->isEmpty($y - 1, $x0))) {
+                    $this->assign($antId, 'move', 'up');
+                    return 1;
+                }
             }
 
-            if (($y - $y0 > 0) && ($this->isEmpty($y + 1, $x0))) {
-                $this->assign($antId, 'move', 'down');
-                return 1;
-            }
+            if ($x0 > $x) {
+                if (($y0 - $y > 0) && ($this->isEmpty($y - 1, $x0))) {
+                    $this->assign($antId, 'move', 'up');
+                    return 1;
+                }
 
+                if (($y - $y0 > 0) && ($this->isEmpty($y + 1, $x0))) {
+                    $this->assign($antId, 'move', 'down');
+                    return 1;
+                }
+            }
 
             //if straight path is blocked
             if ($x0 == $x){
