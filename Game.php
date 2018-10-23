@@ -190,9 +190,10 @@ class Game {
         $ant = $this->ants[$antId];
 
         //small hack temp
+        /*
         if (($ant['health'] < 5) && ($action == 'load'))
             $action = 'eat';
-
+        */
         $this->response[$antId] = [
             'act' => $action,
             'dir' => $direction
