@@ -75,7 +75,7 @@ class Game {
                 }
             }
 
-            if ($y0 > $y) {
+            if ($y0 >= $y) {
                 if (($x - $x0 > 0) && ($this->isEmpty($y0, $x0 + 1))) {
                     $this->assign($antId, 'move', 'right');
                     return 1;
@@ -97,7 +97,7 @@ class Game {
                 }
             }
 
-            if ($x0 > $x) {
+            if ($x0 >= $x) {
                 if (($y0 - $y > 0) && ($this->isEmpty($y0 - 1, $x0))) {
                     $this->assign($antId, 'move', 'up');
                     return 1;
@@ -107,10 +107,6 @@ class Game {
                     return 1;
                 }
             }
-
-
-
-
 
             //if straight path is blocked
 
@@ -150,13 +146,12 @@ class Game {
                         return 1;
                     }
                 } else {
-                    if ($this->isEmpty($y0 - 1, $x0)) {
-                        $this->assign($antId, 'move', 'up');
-                        return 1;
-                    }
-
                     if ($this->isEmpty($y0 + 1, $x0)) {
                         $this->assign($antId, 'move', 'down');
+                        return 1;
+                    }
+                    if ($this->isEmpty($y0 - 1, $x0)) {
+                        $this->assign($antId, 'move', 'up');
                         return 1;
                     }
                 }
@@ -208,7 +203,7 @@ class Game {
                 }
             }
 
-            if ($y0 < $y) {
+            if ($y0 <= $y) {
                 if (($x0 - $x > 0) && ($this->isEmpty($y0, $x0 - 1))) {
                     $this->assign($antId, 'move', 'left');
                     return 1;
@@ -232,7 +227,7 @@ class Game {
                 }
             }
 
-            if ($x0 > $x) {
+            if ($x0 >= $x) {
                 if (($y0 - $y > 0) && ($this->isEmpty($y - 1, $x0))) {
                     $this->assign($antId, 'move', 'up');
                     return 1;
