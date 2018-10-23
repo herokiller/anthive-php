@@ -37,9 +37,11 @@ class Game {
     }
 
     private function checkHive($antId, $y, $x) {
+
         if ($this->isMyHive($y, $x)) {
             $x0 = $this->ants[$antId]['x'];
             $y0 = $this->ants[$antId]['y'];
+
 
             if (($x - $x0 == 1) && ($y0 == $y)) {
                 $this->assign($antId, 'unload', 'right');
@@ -333,14 +335,16 @@ class Game {
                     }
                 }
 
-                for ( $step = 1; $step <= max($this->w, $this->h); $step++ ) {
+                for ( $step = 1; $step <= $this->w + $this->h; $step++ ) {
                     if (isset($this->response[$antId]))
                         break;
+
 
                     for ( $i = 0; $i < $step; $i++ ) {
 
                         $x = $ant['x'] + $i;
                         $y = $ant['y'] + $step - $i;
+
 
                         if ($this->checkHive($antId, $y, $x))
                             break;
@@ -377,7 +381,7 @@ class Game {
                 break;
             */
 
-            for ( $step = 1; $step <= max($this->w, $this->h); $step++ ) {
+            for ( $step = 1; $step <= $this->w + $this->h; $step++ ) {
                 if (isset($this->response[$antId]) || ($ant['payload'] == 9))
                     break;
 
