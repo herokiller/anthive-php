@@ -299,7 +299,7 @@ class Game {
         foreach ($this->ants as $antId => $ant) {
             $counter++;
 
-            if ($counter > 6)
+            if ($counter > 1)
                 break;
 
             if (($ant['payload'] == 9) || (($ant['payload'] > 0) && ($this->hiveNearby($ant))) || ($food == 0)) {
@@ -381,7 +381,7 @@ class Game {
 
             $counter++;
 
-            if ($counter > 6)
+            if ($counter > 1)
                 break;
 
             for ( $step = 1; $step <= max($this->w, $this->h); $step++ ) {
