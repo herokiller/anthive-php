@@ -155,12 +155,44 @@ class Game {
                 $this->assign($antId, 'move', 'left');
                 return 1;
             }
+
+            //if straight path is blocked
+            if ($x0 == $x){
+                if ($this->isEmpty($x0, $y0 - 1)) {
+                    $this->assign($antId, 'move', 'left');
+                    return 1;
+                }
+
+                if ($this->isEmpty($x0, $y + 1)) {
+                    $this->assign($antId, 'move', 'right');
+                    return 1;
+                }
+            }
+
+            if ($y0 == $y) {
+                if ($this->isEmpty($x0 - 1, $y0)) {
+                    $this->assign($antId, 'move', 'up');
+                    return 1;
+                }
+
+                if ($this->isEmpty($x0 + 1, $y)) {
+                    $this->assign($antId, 'move', 'down');
+                    return 1;
+                }
+            }
+            $this->b[$x][$y] = 1;
         }
 
         return 0;
     }
 
     private function assign($antId, $action, $direction) {
+        $ant = $this->ants[$antId];
+
+        //small hack temp
+        if (($ant['health'] < 5) && ($action == 'load'))
+            $action = 'eat';
+
         $this->response[$antId] = [
             'act' => $action,
             'dir' => $direction
@@ -263,7 +295,12 @@ class Game {
         $size = $this->hiveSize();
         $food = $this->foodLeft();
 
+        $counter = 0;
         foreach ($this->ants as $antId => $ant) {
+            $counter++;
+
+            if ($counter > 6)
+                break;
 
             if (($ant['payload'] == 9) || (($ant['payload'] > 0) && ($this->hiveNearby($ant))) || ($food == 0)) {
                 //if standing on the hive itself TODO refactor?
@@ -339,7 +376,14 @@ class Game {
             }
         }
 
+        $counter = 0;
         foreach ($this->ants as $antId => $ant) {
+
+            $counter++;
+
+            if ($counter > 6)
+                break;
+
             for ( $step = 1; $step <= max($this->w, $this->h); $step++ ) {
                 if (isset($this->response[$antId]) || ($ant['payload'] == 9))
                     break;
