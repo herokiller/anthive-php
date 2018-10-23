@@ -80,6 +80,32 @@ class Game {
                 $this->assign($antId, 'move', 'left');
                 return 1;
             }
+
+            //if straight path is blocked
+
+            if ($x0 == $x){
+                if ($this->isEmpty($x0, $y0 - 1)) {
+                    $this->assign($antId, 'move', 'left');
+                    return 1;
+                }
+
+                if ($this->isEmpty($x0, $y + 1)) {
+                    $this->assign($antId, 'move', 'right');
+                    return 1;
+                }
+            }
+
+            if ($y0 == $y) {
+                if ($this->isEmpty($x0 - 1, $y0)) {
+                    $this->assign($antId, 'move', 'up');
+                    return 1;
+                }
+
+                if ($this->isEmpty($x0 + 1, $y)) {
+                    $this->assign($antId, 'move', 'down');
+                    return 1;
+                }
+            }
         }
 
         return 0;
