@@ -101,7 +101,7 @@ class Game {
                     return 1;
                 }
 
-                if ($this->isEmpty($x0 + 1, $y)) {
+                if ($this->isEmpty($x0 + 1, $y0)) {
                     $this->assign($antId, 'move', 'down');
                     return 1;
                 }
@@ -175,7 +175,7 @@ class Game {
                     return 1;
                 }
 
-                if ($this->isEmpty($x0 + 1, $y)) {
+                if ($this->isEmpty($x0 + 1, $y0)) {
                     $this->assign($antId, 'move', 'down');
                     return 1;
                 }
