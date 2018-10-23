@@ -26,83 +26,83 @@ class Game {
 
 
     private function hiveNearby($ant) {
-        $x = $ant['x'];
         $y = $ant['y'];
+        $x = $ant['x'];
 
         for ( $i = 0; $i < 4; $i++ )
-            if ($this->isMyHive($x + self::di[$i], $y + self::dj[$i]))
+            if ($this->isMyHive($y + self::di[$i], $x + self::dj[$i]))
                 return 1;
 
         return 0;
     }
 
-    private function checkHive($antId, $x, $y) {
+    private function checkHive($antId, $y, $x) {
         if ($this->isMyHive($x, $y)) {
             $x0 = $this->ants[$antId]['x'];
             $y0 = $this->ants[$antId]['y'];
 
             if (($x - $x0 == 1) && ($y0 == $y)) {
-                $this->assign($antId, 'unload', 'down');
-                return 1;
-            }
-
-            if (($x0 - $x == 1) && ($y0 == $y)) {
-                $this->assign($antId, 'unload', 'up');
-                return 1;
-            }
-
-            if (($y - $y0 == 1) && ($x0 == $x)) {
                 $this->assign($antId, 'unload', 'right');
                 return 1;
             }
 
-            if (($y0 - $y == 1) && ($x0 == $x)) {
+            if (($x0 - $x == 1) && ($y0 == $y)) {
                 $this->assign($antId, 'unload', 'left');
                 return 1;
             }
+
+            if (($y - $y0 == 1) && ($x0 == $x)) {
+                $this->assign($antId, 'unload', 'down');
+                return 1;
+            }
+
+            if (($y0 - $y == 1) && ($x0 == $x)) {
+                $this->assign($antId, 'unload', 'up');
+                return 1;
+            }
             //
-            if (($x - $x0 > 0) && ($this->isEmpty($x0 + 1, $y0))) {
-                $this->assign($antId, 'move', 'down');
-                return 1;
-            }
-
-            if (($x0 - $x > 0) && ($this->isEmpty($x0 - 1, $y0))) {
-                $this->assign($antId, 'move', 'up');
-                return 1;
-            }
-
-            if (($y - $y0 > 0) && ($this->isEmpty($x0, $y + 1))) {
+            if (($x - $x0 > 0) && ($this->isEmpty($y0, $x0 + 1))) {
                 $this->assign($antId, 'move', 'right');
                 return 1;
             }
 
-            if (($y0 - $y > 0) && ($this->isEmpty($x0, $y - 1))) {
+            if (($x0 - $x > 0) && ($this->isEmpty($y0, $x0 - 1))) {
                 $this->assign($antId, 'move', 'left');
+                return 1;
+            }
+
+            if (($y - $y0 > 0) && ($this->isEmpty($y0 + 1, $x0))) {
+                $this->assign($antId, 'move', 'down');
+                return 1;
+            }
+
+            if (($y0 - $y > 0) && ($this->isEmpty($y0 - 1, $x0))) {
+                $this->assign($antId, 'move', 'up');
                 return 1;
             }
 
             //if straight path is blocked
 
             if ($x0 == $x){
-                if ($this->isEmpty($x0, $y0 - 1)) {
-                    $this->assign($antId, 'move', 'left');
+                if ($this->isEmpty($y0 - 1, $x0)) {
+                    $this->assign($antId, 'move', 'up');
                     return 1;
                 }
 
-                if ($this->isEmpty($x0, $y + 1)) {
-                    $this->assign($antId, 'move', 'right');
+                if ($this->isEmpty($y + 1, $x0)) {
+                    $this->assign($antId, 'move', 'down');
                     return 1;
                 }
             }
 
             if ($y0 == $y) {
-                if ($this->isEmpty($x0 - 1, $y0)) {
-                    $this->assign($antId, 'move', 'up');
+                if ($this->isEmpty($y0, $x0 - 1)) {
+                    $this->assign($antId, 'move', 'left');
                     return 1;
                 }
 
-                if ($this->isEmpty($x0 + 1, $y0)) {
-                    $this->assign($antId, 'move', 'down');
+                if ($this->isEmpty($y0, $x0 + 1)) {
+                    $this->assign($antId, 'move', 'right');
                     return 1;
                 }
             }
@@ -111,82 +111,81 @@ class Game {
         return 0;
     }
 
-    private function checkFood($antId, $x, $y) {
+    private function checkFood($antId, $y, $x) {
+
 /*        if ($this->isMyHive($x, $y))
             return 0;
 */
-        if ($this->isUnassignedFood($x, $y)) {
+        if ($this->isUnassignedFood($y, $x)) {
             $x0 = $this->ants[$antId]['x'];
             $y0 = $this->ants[$antId]['y'];
 
             if (($x - $x0 == 1) && ($y0 == $y)) {
-                $this->assign($antId, 'load', 'down');
-                return 1;
-            }
-
-            if (($x0 - $x == 1) && ($y0 == $y)) {
-                $this->assign($antId, 'load', 'up');
-                return 1;
-            }
-
-            if (($y - $y0 == 1) && ($x0 == $x)) {
                 $this->assign($antId, 'load', 'right');
                 return 1;
             }
 
-            if (($y0 - $y == 1) && ($x0 == $x)) {
+            if (($x0 - $x == 1) && ($y0 == $y)) {
                 $this->assign($antId, 'load', 'left');
                 return 1;
             }
+
+            if (($y - $y0 == 1) && ($x0 == $x)) {
+                $this->assign($antId, 'load', 'down');
+                return 1;
+            }
+
+            if (($y0 - $y == 1) && ($x0 == $x)) {
+                $this->assign($antId, 'load', 'up');
+                return 1;
+            }
+
             //
-            if (($x - $x0 > 0) && ($this->isEmpty($x0 + 1, $y0))) {
-                $this->assign($antId, 'move', 'down');
-                return 1;
-            }
-
-            if (($x0 - $x > 0) && ($this->isEmpty($x0 - 1, $y0))) {
-                $this->assign($antId, 'move', 'up');
-                return 1;
-            }
-
-            if (($y - $y0 > 0) && ($this->isEmpty($x0, $y + 1))) {
+            if (($x - $x0 > 0) && ($this->isEmpty($y0, $x0 + 1))) {
                 $this->assign($antId, 'move', 'right');
                 return 1;
             }
 
-            if (($y0 - $y > 0) && ($this->isEmpty($x0, $y - 1))) {
+            if (($x0 - $x > 0) && ($this->isEmpty($y0, $x0 - 1))) {
                 $this->assign($antId, 'move', 'left');
+                return 1;
+            }
+
+            if (($y - $y0 > 0) && ($this->isEmpty($y + 1, $x0))) {
+                $this->assign($antId, 'move', 'down');
+                return 1;
+            }
+
+            if (($y0 - $y > 0) && ($this->isEmpty($y - 1, $x0))) {
+                $this->assign($antId, 'move', 'up');
                 return 1;
             }
 
             //if straight path is blocked
             if ($x0 == $x){
-
-                if ($this->isEmpty($x0, $y + 1)) {
-                    $this->assign($antId, 'move', 'right');
-                    return 1;
-                }
-
-                if ($this->isEmpty($x0, $y0 - 1)) {
-                    $this->assign($antId, 'move', 'left');
-                    return 1;
-                }
-
-
-            }
-
-            if ($y0 == $y) {
-                if ($this->isEmpty($x0 + 1, $y0)) {
+                if ($this->isEmpty($y + 1, $x0)) {
                     $this->assign($antId, 'move', 'down');
                     return 1;
                 }
 
-                if ($this->isEmpty($x0 - 1, $y0)) {
+                if ($this->isEmpty($y0 - 1, $x0)) {
                     $this->assign($antId, 'move', 'up');
                     return 1;
                 }
             }
-            $this->b[$x][$y] = 1;
+
+            if ($y0 == $y) {
+                if ($this->isEmpty($y0, $x0 + 1)) {
+                    $this->assign($antId, 'move', 'right');
+                    return 1;
+                }
+
+                if ($this->isEmpty($y0, $x0 - 1)) {
+                    $this->assign($antId, 'move', 'left');
+                    return 1;
+                }
+            }
+            $this->b[$y][$x] = 1;
         }
 
         return 0;
@@ -253,8 +252,8 @@ class Game {
         return (isset($this->map[$i][$j]['food']) && ($this->map[$i][$j]['food'] > 0));
     }
 
-    public function isUnassignedFood($x, $y) {
-        return ($this->inside($x, $y) && ($this->isFood($x, $y)) && !$this->b[$x][$y]);
+    public function isUnassignedFood($i, $j) {
+        return ($this->inside($i, $j) && ($this->isFood($i, $j)) && !$this->b[$i][$j]);
     }
 
     //for future
@@ -282,18 +281,6 @@ class Game {
     }
 
     public function getMoves() {
-        //dummy
-        $respose = [];
-        /*
-        foreach ($this->ants as $antId => $ant){
-            $this->response[$antId] = array(
-                "act"=>ACTIONS[rand(0,3)],
-                "dir"=>DIRECTIONS[rand(0,3)]
-            );
-        }
-        */
-
-        //
         $this->b = [];
         for ( $i = 0; $i < $this->h; $i++ )
             for ( $j = 0; $j < $this->w; $j++ )
@@ -306,46 +293,42 @@ class Game {
         foreach ($this->ants as $antId => $ant) {
             $counter++;
 
-            /*
-            if ($counter > 1)
-                break;
-            */
             if (($ant['payload'] == 9) || (($ant['payload'] > 0) && ($this->hiveNearby($ant))) || ($food == 0)) {
                 //if standing on the hive itself TODO refactor?
                 if (($size == 1) && ($this->isMyHive($ant['x'], $ant['y']))) {
-                    if ( $this->isEmpty($ant['x'] + 1, $ant['y']) ) {
+                    if ( $this->isEmpty($ant['y'] + 1, $ant['x']) ) {
                         $this->response[$antId] = [
                             'act' => 'move',
                             'dir' => 'down'
                         ];
-                        $this->b[$ant['x']+1][$ant['y']] = 1;
+                        $this->b[$ant['y']+1][$ant['x']] = 1;
                         continue;
                     }
 
-                    if ( $this->isEmpty($ant['x'], $ant['y'] + 1) ) {
+                    if ( $this->isEmpty($ant['y'], $ant['x'] + 1) ) {
                         $this->response[$antId] = [
                             'act' => 'move',
                             'dir' => 'right'
                         ];
-                        $this->b[$ant['x']][$ant['y'] + 1] = 1;
+                        $this->b[$ant['y']][$ant['x'] + 1] = 1;
                         continue;
                     }
 
-                    if ( $this->isEmpty($ant['x'] - 1, $ant['y']) ) {
+                    if ( $this->isEmpty($ant['y'] - 1, $ant['x']) ) {
                         $this->response[$antId] = [
                             'act' => 'move',
                             'dir' => 'up'
                         ];
-                        $this->b[$ant['x'] - 1][$ant['y']] = 1;
+                        $this->b[$ant['y'] - 1][$ant['x']] = 1;
                         continue;
                     }
 
-                    if ( $this->isEmpty($ant['x'], $ant['y'] - 1) ) {
+                    if ( $this->isEmpty($ant['y'], $ant['x'] - 1) ) {
                         $this->response[$antId] = [
                             'act' => 'move',
                             'dir' => 'left'
                         ];
-                        $this->b[$ant['x']][$ant['y'] - 1] = 1;
+                        $this->b[$ant['y']][$ant['x'] - 1] = 1;
                         continue;
                     }
                 }
@@ -359,25 +342,25 @@ class Game {
                         $x = $ant['x'] + $i;
                         $y = $ant['y'] + $step - $i;
 
-                        if ($this->checkHive($antId, $x, $y))
+                        if ($this->checkHive($antId, $y, $x))
                             break;
 
                         $x = $ant['x'] + $step - $i;
                         $y = $ant['y'] - $i;
 
-                        if ($this->checkHive($antId, $x, $y))
+                        if ($this->checkHive($antId, $y, $x))
                             break;
 
                         $x = $ant['x'] - $i;
                         $y = $ant['y'] - $step + $i;
 
-                        if ($this->checkHive($antId, $x, $y))
+                        if ($this->checkHive($antId, $y, $x))
                             break;
 
                         $x = $ant['x'] - $step + $i;
                         $y = $ant['y'] + $i;
 
-                        if ($this->checkHive($antId, $x, $y))
+                        if ($this->checkHive($antId, $y, $x))
                             break;
                     }
                 }
@@ -402,20 +385,15 @@ class Game {
                     //check down - right
                     $x = $ant['x'] + $i;
                     $y = $ant['y'] + $step - $i;
-                    //print_r('checking 1: ' . $x . ' ' . $y . "\n");
-                    //print_r($this->map[$x][$y]);
-                    if ($this->checkFood($antId, $x, $y))
-                        break;
 
+                    if ($this->checkFood($antId, $y, $x))
+                        break;
 
                     //check down - left
                     $x = $ant['x'] + $step - $i;
                     $y = $ant['y'] - $i;
 
-                    //print_r('checking 2: ' . $x . ' ' . $y . "\n");
-                    //print_r($this->map[$x][$y]);
-
-                    if ($this->checkFood($antId, $x, $y))
+                    if ($this->checkFood($antId, $y, $x))
                         break;
 
                     //check up - right
@@ -423,14 +401,14 @@ class Game {
                     $x = $ant['x'] - $i;
                     $y = $ant['y'] - $step + $i;
 
-                    if ($this->checkFood($antId, $x, $y))
+                    if ($this->checkFood($antId, $y, $x))
                         break;
                     //check up - left
 
                     $x = $ant['x'] - $step + $i;
                     $y = $ant['y'] + $i;
 
-                    if ($this->checkFood($antId, $x, $y))
+                    if ($this->checkFood($antId, $y, $x))
                         break;
                 }
             }
