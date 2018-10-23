@@ -299,9 +299,10 @@ class Game {
         foreach ($this->ants as $antId => $ant) {
             $counter++;
 
+            /*
             if ($counter > 1)
                 break;
-
+            */
             if (($ant['payload'] == 9) || (($ant['payload'] > 0) && ($this->hiveNearby($ant))) || ($food == 0)) {
                 //if standing on the hive itself TODO refactor?
                 if (($size == 1) && ($this->isMyHive($ant['x'], $ant['y']))) {
@@ -381,8 +382,10 @@ class Game {
 
             $counter++;
 
+            /*
             if ($counter > 1)
                 break;
+            */
 
             for ( $step = 1; $step <= max($this->w, $this->h); $step++ ) {
                 if (isset($this->response[$antId]) || ($ant['payload'] == 9))
