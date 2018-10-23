@@ -12,8 +12,8 @@ class Game {
     const ACTIONS = ["move","eat","load","unload"];
     const DIRECTIONS = ["up","down","right","left"];
 
-    const di = [1, 1, -1, -1];
-    const dj = [1, -1, 1, -1];
+    const di = [1, -1, 0, 0];
+    const dj = [0, 0, 1, -1];
 
     public function init($id, $ants, $map, $h, $w) {
         $this->id = $id;
