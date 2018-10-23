@@ -143,9 +143,9 @@ class Game {
 
     private function checkFood($antId, $y, $x) {
 
-/*        if ($this->isMyHive($x, $y))
+        if ($this->isMyHive($x, $y))
             return 0;
-*/
+
         if ($this->isUnassignedFood($y, $x)) {
             $x0 = $this->ants[$antId]['x'];
             $y0 = $this->ants[$antId]['y'];
