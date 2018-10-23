@@ -295,7 +295,7 @@ class Game {
 
             if (($ant['payload'] == 9) || (($ant['payload'] > 0) && ($this->hiveNearby($ant))) || ($food == 0)) {
                 //if standing on the hive itself TODO refactor?
-                if (($size == 1) && ($this->isMyHive($ant['x'], $ant['y']))) {
+                if (($size == 1) && ($this->isMyHive($ant['y'], $ant['x']))) {
                     if ( $this->isEmpty($ant['y'] + 1, $ant['x']) ) {
                         $this->response[$antId] = [
                             'act' => 'move',
