@@ -37,7 +37,7 @@ class Game {
     }
 
     private function checkHive($antId, $y, $x) {
-        if ($this->isMyHive($x, $y)) {
+        if ($this->isMyHive($y, $x)) {
             $x0 = $this->ants[$antId]['x'];
             $y0 = $this->ants[$antId]['y'];
 
