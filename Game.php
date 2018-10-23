@@ -38,7 +38,7 @@ class Game {
 
     private function checkHive($antId, $y, $x) {
 
-        if ($this->isMyHive($y, $x)) {
+        if ($this->isMyHive($y, $x) && (!$this->isAnt($y, $x))) {
 
             $x0 = $this->ants[$antId]['x'];
             $y0 = $this->ants[$antId]['y'];
@@ -353,6 +353,10 @@ class Game {
 
     public function isEmpty($i, $j) {
         return ($this->inside($i, $j) && (!isset($this->map[$i][$j]['food'])) && (!isset($this->map[$i][$j]['ant'])));
+    }
+
+    public function isAnt($i, $j) {
+        return ($this->inside($i, $j) && (isset($this->map[$i][$j]['ant'])));
     }
 
     public function isFood($i, $j) {
