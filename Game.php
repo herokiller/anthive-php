@@ -216,24 +216,24 @@ class Game {
 
 
             if ($x0 < $x) {
-                if (($y - $y0 > 0) && ($this->isEmpty($y + 1, $x0))) {
+                if (($y - $y0 > 0) && ($this->isEmpty($y0 + 1, $x0))) {
                     $this->assign($antId, 'move', 'down');
                     return 1;
                 }
 
-                if (($y0 - $y > 0) && ($this->isEmpty($y - 1, $x0))) {
+                if (($y0 - $y > 0) && ($this->isEmpty($y0 - 1, $x0))) {
                     $this->assign($antId, 'move', 'up');
                     return 1;
                 }
             }
 
             if ($x0 >= $x) {
-                if (($y0 - $y > 0) && ($this->isEmpty($y - 1, $x0))) {
+                if (($y0 - $y > 0) && ($this->isEmpty($y0 - 1, $x0))) {
                     $this->assign($antId, 'move', 'up');
                     return 1;
                 }
 
-                if (($y - $y0 > 0) && ($this->isEmpty($y + 1, $x0))) {
+                if (($y - $y0 > 0) && ($this->isEmpty($y0 + 1, $x0))) {
                     $this->assign($antId, 'move', 'down');
                     return 1;
                 }
